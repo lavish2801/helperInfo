@@ -3,6 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Find maids, cooks, drivers and home helpers in Gurgaon sectors. Filter by sector and category to contact local helpers directly." />
+  <meta name="keywords" content="Gurgaon helper, Gurgaon maid, Gurgaon cook, Gurgaon driver, Sector 57, Sector 54, home help Gurgaon" />
+  <link rel="icon" href="./images/logo.png" type="image/png" />
+  <link rel="apple-touch-icon" href="./images/logo.png" />
+  <meta property="og:title" content="Helper Info – Find Home Helpers in Gurgaon" />
+  <meta property="og:description" content="Browse and filter helpers by Gurgaon sectors and categories. Connect directly by phone." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="./images/logo.png" />
   <title>Helper Info</title>
   <link rel="stylesheet" href="./styles.css" />
 </head>
@@ -10,11 +18,9 @@
   <header class="container header">
     <div class="brand">
       <div class="brand-logo" aria-hidden="true">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="2" y="2" width="20" height="20" rx="6" fill="#4c8dff"/>
-          <path d="M7 12h10" stroke="#0b1020" stroke-width="2" stroke-linecap="round"/>
-          <path d="M12 7v10" stroke="#0b1020" stroke-width="2" stroke-linecap="round"/>
-        </svg>
+        <img src="./images/logo.png" alt="Helper Info Logo" width="28" height="28">
+          
+        
       </div>
       <div class="brand-text">
         <h1>Helper Info</h1>
@@ -42,16 +48,13 @@
     <section class="filters" id="filters">
       <div class="filter-group">
         <h2>Locations</h2>
-        <label class="label">Choose one or more sectors</label>
-        <div class="dropdown" data-dropdown="locations">
-          <button type="button" class="dropdown-toggle" id="locations-toggle" aria-haspopup="listbox" aria-expanded="false">Select sectors</button>
-          <div class="dropdown-menu" role="listbox" aria-labelledby="locations-toggle">
-            <label class="option"><input type="checkbox" name="locations" value="SECTOR 57" /> <span>Sector 57</span></label>
-            <label class="option"><input type="checkbox" name="locations" value="SECTOR 56" /> <span>Sector 56</span></label>
-            <label class="option"><input type="checkbox" name="locations" value="SECTOR 55" /> <span>Sector 55</span></label>
-            <label class="option"><input type="checkbox" name="locations" value="SECTOR 54" /> <span>Sector 54</span></label>
-          </div>
+        <label class="label">Type to search sectors</label>
+        <div class="multiselect" id="locations-multiselect">
+          <div class="chips" id="locations-chips"></div>
+          <input type="text" id="locations-input" class="input" placeholder="e.g., 57" autocomplete="off" />
+          <div class="suggestions" id="locations-suggestions"></div>
         </div>
+        <div id="locations-hidden" class="hidden"></div>
       </div>
 
       <div class="filter-group">
@@ -62,6 +65,11 @@
           <div class="dropdown-menu" role="listbox" aria-labelledby="category-toggle">
             <label class="option"><input type="checkbox" name="category" value="COOK" /> <span>Cook</span></label>
             <label class="option"><input type="checkbox" name="category" value="MAID" /> <span>Maid</span></label>
+            <label class="option"><input type="checkbox" name="category" value="DRIVER" /> <span>Driver</span></label>
+            <label class="option"><input type="checkbox" name="category" value="ELDERLY CARE" /> <span>Elderly Care</span></label>
+            <label class="option"><input type="checkbox" name="category" value="BABY CARE" /> <span>Baby Care</span></label>
+            <label class="option"><input type="checkbox" name="category" value="BROKER" /> <span>Broker</span></label>
+            <label class="option"><input type="checkbox" name="category" value="DOG CARE" /> <span>Dog Care</span></label>
           </div>
         </div>
       </div>

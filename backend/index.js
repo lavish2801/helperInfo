@@ -5,7 +5,7 @@ require('dotenv').config();
 const bodyParser = require('body-parser');
 
 const app = express();
-const PORT = process.env.PORT || 51009;
+const PORT = process.env.PORT || 5100;
 
 
 // Middleware
@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 // app.use(cookieParser());
 
 // MongoDB Atlas Connection
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://username:password@cluster.mongodb.net/drcaptablife?retryWrites=true&w=majority';
+const MONGODB_URI = process.env.MONGODB_URI ;
 
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
@@ -44,7 +44,7 @@ const helperInfoSchema = new mongoose.Schema({
     type: [String],
     default: [],
     required: false,
-    enum: ['COOK', 'MAID', 'DRIVER', 'ELDERLY CARE', 'BABY CARE', 'OTHER']
+    enum: ['COOK', 'MAID', 'DRIVER', 'ELDERLY CARE', 'BABY CARE', 'BROKER', 'DOG CARE']
   },
   phone_number: {
     type: String,
@@ -124,8 +124,8 @@ app.get('/api/helperInfo', async (req, res) => {
 
     const query = {};
     if (locationTerms.length > 0) {
-      // require all selected locations to be present on the document
-      query.locations = { $all: locationTerms };
+      // match any of the selected locations (OR semantics)
+      query.locations = { $in: locationTerms };
     }
     if (categoryTerms.length > 0) {
       // match any of the selected categories
@@ -180,8 +180,8 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Something went wrong!' });
 });
 
-// 404 handler
-app.use('*', (req, res) => {
+// 404 handler (avoid wildcard '*' to prevent path-to-regexp errors)
+app.use((req, res) => {
   res.status(404).json({ error: 'Route not found' });
 });
 

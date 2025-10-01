@@ -7,7 +7,6 @@
   const dropdowns = Array.from(document.querySelectorAll('.dropdown'));
 
   function selected(name) {
-    // For checkbox legacy support (not used now)
     return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(i => i.value);
   }
 
@@ -86,11 +85,101 @@
   function getApiBase() {
     // Same origin by default; update if backend runs on different port
     // Example: return 'http://localhost:51009'
-    return '';
+    return 'http://localhost:5100';
   }
 
+  // --- Typeahead state and helpers for Locations ---
+  const state = { locations: [] };
+
+  function buildLocationOptions() {
+    const list = [];
+    for (let n = 14; n <= 70; n++) list.push({ value: `SECTOR ${n}`, label: `Sector ${n}` });
+    return list;
+  }
+  function normalize(text) { return String(text).trim().toUpperCase(); }
+  function filterLocationOptions(q) {
+    const query = normalize(q);
+    if (!query) return [];
+    return buildLocationOptions().filter(o => {
+      const val = normalize(o.value);
+      const lab = normalize(o.label);
+      const num = val.replace(/[^0-9]/g, '');
+      if (num && num.startsWith(query)) return true;
+      return val.includes(query) || lab.includes(query);
+    }).slice(0, 20);
+  }
+  function renderLocationChips() {
+    const chips = document.getElementById('locations-chips');
+    if (!chips) return;
+    chips.innerHTML = '';
+    state.locations.forEach(v => {
+      const span = document.createElement('span');
+      span.className = 'chip';
+      const num = String(v).replace(/[^0-9]/g, '');
+      span.textContent = num ? `Sector ${num}` : v;
+      const btn = document.createElement('button');
+      btn.type = 'button'; btn.textContent = '×'; btn.setAttribute('aria-label', 'Remove');
+      btn.addEventListener('click', () => removeLocation(v));
+      span.appendChild(btn);
+      chips.appendChild(span);
+    });
+    syncHiddenLocations();
+  }
+  function openLocationSuggestions(items) {
+    const list = document.getElementById('locations-suggestions');
+    if (!list) return;
+    list.innerHTML = '';
+    if (items.length === 0) { list.classList.remove('open'); return; }
+    items.forEach(it => {
+      const el = document.createElement('div');
+      el.className = 'suggestion-item';
+      el.textContent = it.label;
+      el.addEventListener('click', () => addLocation(it.value));
+      list.appendChild(el);
+    });
+    list.classList.add('open');
+  }
+  function closeLocationSuggestions() {
+    const list = document.getElementById('locations-suggestions');
+    if (!list) return; list.classList.remove('open'); list.innerHTML = '';
+  }
+  function addLocation(v) {
+    if (!state.locations.includes(v)) { state.locations.push(v); renderLocationChips(); }
+    closeLocationSuggestions();
+    const input = document.getElementById('locations-input'); if (input) input.value = '';
+  }
+  function removeLocation(v) { state.locations = state.locations.filter(x => x !== v); renderLocationChips(); }
+  function syncHiddenLocations() {
+    const hidden = document.getElementById('locations-hidden'); if (!hidden) return;
+    hidden.innerHTML = '';
+    state.locations.forEach(v => {
+      const input = document.createElement('input');
+      input.type = 'hidden'; input.name = 'locations'; input.value = v;
+      hidden.appendChild(input);
+    });
+  }
+
+  // Init location input
+  (function initLocationsTypeahead(){
+    const container = document.getElementById('locations-multiselect');
+    const input = document.getElementById('locations-input');
+    if (!container || !input) return;
+    input.addEventListener('input', () => {
+      openLocationSuggestions(filterLocationOptions(input.value).filter(o => !state.locations.includes(o.value)));
+    });
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { e.preventDefault();
+        const opts = filterLocationOptions(input.value).filter(o => !state.locations.includes(o.value));
+        if (opts.length) addLocation(opts[0].value);
+      } else if (e.key === 'Backspace' && input.value === '' && state.locations.length) {
+        removeLocation(state.locations[state.locations.length - 1]);
+      }
+    });
+    document.addEventListener('click', (e) => { if (!container.contains(e.target)) closeLocationSuggestions(); });
+  })();
+
   window.applyFilters = function() {
-    const locations = selected('locations');
+    const locations = state.locations.slice();
     const category = selected('category');
     if (locations.length === 0 && category.length === 0) {
       statusEl.textContent = 'Select filters to view results';
@@ -103,8 +192,9 @@
 
   clearButton.addEventListener('click', () => {
     document.querySelectorAll('.dropdown input[type="checkbox"]').forEach(i => { i.checked = false; });
-    resultsEl.innerHTML = '';
-    statusEl.textContent = 'Filters cleared';
+    state.locations = []; renderLocationChips();
+    const input = document.getElementById('locations-input'); if (input) input.value = '';
+    resultsEl.innerHTML = ''; statusEl.textContent = 'Filters cleared';
   });
 
   // Dropdown interactions
