@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Helper Info</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="container header">
+    <div class="brand">
+      <div class="brand-logo" aria-hidden="true">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="20" height="20" rx="6" fill="#4c8dff"/>
+          <path d="M7 12h10" stroke="#0b1020" stroke-width="2" stroke-linecap="round"/>
+          <path d="M12 7v10" stroke="#0b1020" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <h1>Helper Info</h1>
+        <span class="tagline">Find trusted home help nearby</span>
+      </div>
+    </div>
+    <div>
+      <a href="./add.html" class="post-btn" title="Post New Details">Post New Details</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-content">
+        <h2>Trusted home help, near you</h2>
+        <p>Discover local helpers for cooking and housekeeping in your neighborhood. Filter by sector and category to quickly find the right person.</p>
+        <ul class="bullets">
+          <li>Browse verified listings</li>
+          <li>Filter by your sector (54–57) and role</li>
+          <li>Contact directly by phone</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="filters" id="filters">
+      <div class="filter-group">
+        <h2>Locations</h2>
+        <label class="label">Choose one or more sectors</label>
+        <div class="dropdown" data-dropdown="locations">
+          <button type="button" class="dropdown-toggle" id="locations-toggle" aria-haspopup="listbox" aria-expanded="false">Select sectors</button>
+          <div class="dropdown-menu" role="listbox" aria-labelledby="locations-toggle">
+            <label class="option"><input type="checkbox" name="locations" value="SECTOR 57" /> <span>Sector 57</span></label>
+            <label class="option"><input type="checkbox" name="locations" value="SECTOR 56" /> <span>Sector 56</span></label>
+            <label class="option"><input type="checkbox" name="locations" value="SECTOR 55" /> <span>Sector 55</span></label>
+            <label class="option"><input type="checkbox" name="locations" value="SECTOR 54" /> <span>Sector 54</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <h2>Category</h2>
+        <label class="label">Choose one or more categories</label>
+        <div class="dropdown" data-dropdown="category">
+          <button type="button" class="dropdown-toggle" id="category-toggle" aria-haspopup="listbox" aria-expanded="false">Select categories</button>
+          <div class="dropdown-menu" role="listbox" aria-labelledby="category-toggle">
+            <label class="option"><input type="checkbox" name="category" value="COOK" /> <span>Cook</span></label>
+            <label class="option"><input type="checkbox" name="category" value="MAID" /> <span>Maid</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="applyFilters">Apply Filters</button>
+        <button id="clearFilters" class="secondary">Clear</button>
+      </div>
+    </section>
+
+    <section id="results-section" class="results-section hidden">
+      <div id="status" class="status"></div>
+      <div id="results" class="grid"></div>
+    </section>
+
+    <section class="how-it-helps">
+      <h2>How this helps</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div>
+            <h3>Select your needs</h3>
+            <p>Choose your sector and the type of help you need — cook or maid.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div>
+            <h3>Review matches</h3>
+            <p>View helpers that match your filters with their locations and categories.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div>
+            <h3>Connect</h3>
+            <p>Reach out directly to discuss availability and details.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container footer">
+    <span>Helper Info</span>
+  </footer>
+
+  <script src="./app.js"></script>
+  
+</body>
+</html>
+
+
