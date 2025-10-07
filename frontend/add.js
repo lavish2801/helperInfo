@@ -14,7 +14,7 @@
   function getApiBase() {
     // Same origin by default; update if backend runs on different port
     // Example: return 'http://localhost:51009'
-    return 'http://localhost:5100';
+    return 'https://commonbackend.onrender.com/api/helperInfo';
   }
 
   function values(name) {
@@ -231,7 +231,7 @@
     }
 
     try {
-      const res = await fetch(`${getApiBase()}/api/helperInfo`, {
+      const res = await fetch(`${getApiBase()}/data`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ helper_name, category, locations, phone_number })

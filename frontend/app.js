@@ -30,7 +30,7 @@
 
   async function fetchHelpers(filters) {
     const qs = buildQuery(filters);
-    const url = `${getApiBase()}/api/helperInfo${qs ? `?${qs}` : ''}`;
+    const url = `${getApiBase()}/data${qs ? `?${qs}` : ''}`;
     statusEl.textContent = 'Loading...';
     try {
       const res = await fetch(url);
@@ -85,7 +85,7 @@
   function getApiBase() {
     // Same origin by default; update if backend runs on different port
     // Example: return 'http://localhost:51009'
-    return 'http://localhost:5100';
+    return 'https://commonbackend.onrender.com/api/helperInfo';
   }
 
   // --- Typeahead state and helpers for Locations ---
