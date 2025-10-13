@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 // app.use(cookieParser());
 
 // MongoDB Atlas Connection
-const MONGODB_URI = process.env.MONGODB_URI ;
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://lavish:j3MO949hep9fHq@helperdata.jfqnism.mongodb.net/' ;
 
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
@@ -99,14 +99,14 @@ const HelperInfo = mongoose.model('helperInfo', helperInfoSchema);
 // Health Check
 app.get('/', (req, res) => {
   res.json({ 
-    message: 'Helper Info API is running!',
+    message: 'Help-Dial API is running!',
     version: '1.0.0',
     timestamp: new Date().toISOString()
   });
 });
 
 // Content Routes (Products, Ad Images, Banners)
-app.get('/api/helperInfo', async (req, res) => {
+app.get('/api/helperInfo/data', async (req, res) => {
   try {
     // read from query: locations and category can be string or array
     const { locations, category } = req.query;
@@ -139,7 +139,7 @@ app.get('/api/helperInfo', async (req, res) => {
   }
 });
 
-app.post('/api/helperInfo', async (req, res) => {
+app.post('/api/helperInfo/data', async (req, res) => {
   try {
    const { helper_name, category, phone_number, locations } = req.body;
 
