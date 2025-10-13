@@ -44,7 +44,7 @@ const helperInfoSchema = new mongoose.Schema({
     type: [String],
     default: [],
     required: false,
-    enum: ['COOK', 'MAID', 'DRIVER', 'ELDERLY CARE', 'BABY CARE', 'BROKER', 'DOG CARE']
+    enum: ['COOK', 'CLEANING', 'DRIVER', 'ELDERLY CARE', 'BABY CARE', 'BROKER', 'DOG CARE']
   },
   phone_number: {
     type: String,
