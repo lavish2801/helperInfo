@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://localhost:5100/</loc>
+    <loc>https://helpdial.info/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://localhost:5100/add.html</loc>
+    <loc>https://helpdial.info/add.html</loc>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>

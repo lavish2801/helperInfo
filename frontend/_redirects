@@ -1,0 +1,9 @@
+# Redirect from non-www to www
+https://helpdial.info/* https://www.helpdial.info/:splat 301!
+http://helpdial.info/* https://www.helpdial.info/:splat 301!
+
+# Redirect from Netlify app to main domain
+http://helpdial.netlify.app/* https://www.helpdial.info/:splat 301!
+
+# Handle 404s
+/* /index.html 200
